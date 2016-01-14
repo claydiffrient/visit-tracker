@@ -1,0 +1,4 @@
+This folder will contain the code for the mobile app portion of the application.
+
+Currently it is anticipated that it will be created using React Native for
+both iOS and Android.

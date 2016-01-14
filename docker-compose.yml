@@ -1,0 +1,14 @@
+api:
+  build: ./src/api
+  volumes:
+    - "./src/api:/usr/src/app"
+  command: dumb-init npm run dev
+  environment:
+    VIRTUAL_HOST: visitapi.docker
+    PORT: 5000
+    NODE_ENV: development
+  links:
+    - mongo
+
+mongo:
+  image: mongo:3.2
