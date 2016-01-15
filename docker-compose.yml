@@ -10,5 +10,13 @@ api:
   links:
     - mongo
 
+api_test:
+  build: ./src/api
+  volumes:
+    - "./src/api:/usr/src/app"
+  command: dumb-init npm test
+  environment:
+    NODE_ENV: test
+
 mongo:
   image: mongo:3.2
