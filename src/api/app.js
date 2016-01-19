@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const config = require('config');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 let app = express();
 
@@ -16,10 +17,14 @@ app.models = require('./models');
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
+const persons = require('./routes/persons');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// TODO: Make this a bit more fine grained.
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -29,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/persons', persons);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

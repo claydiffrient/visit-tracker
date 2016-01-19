@@ -23,7 +23,12 @@ personSchema.pre('save', (next) => {
 });
 
 personSchema.methods.getLastVisit = () => {
-  return this.visits[this.visits.length];
+  console.log(this.visits);
+  if (this.visits) {
+    return this.visits[this.visits.length];
+  } else {
+    return null;
+  }
 };
 
 const Person = mongoose.model('Person', personSchema);
