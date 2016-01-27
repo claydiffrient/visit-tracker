@@ -48,7 +48,9 @@ class App extends Component {
           </Navbar>
         <Row>
           <Col style={{marginTop: '70px'}} xs={12}>
-            {React.cloneElement(this.props.children, {...this.props})}
+            {React.Children.map(this.props.children, (child) => {
+              return React.cloneElement(child, {...this.props});
+            })}
           </Col>
         </Row>
       </Grid>

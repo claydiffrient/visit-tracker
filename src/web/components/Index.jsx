@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Grid, Row, Col, Button, ButtonGroup} from 'react-bootstrap';
+import { List } from 'immutable';
 
 export default class Index extends Component {
+
+  static propTypes = {
+    persons: React.PropTypes.instanceOf(List)
+  };
+
   constructor () {
     super();
     console.log(this.props);
