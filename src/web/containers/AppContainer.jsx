@@ -13,9 +13,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    handleWillMount: () => {
-      dispatch(Actions.getPersons());
-    }
+    handleWillMount () { return dispatch(Actions.getPersons()); },
+    onAddPersonSubmit (request) { return dispatch(Actions.addPerson(request));}
   };
 }
 

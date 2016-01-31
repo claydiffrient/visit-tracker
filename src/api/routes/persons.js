@@ -12,4 +12,15 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/', (req, res) => {
+  const person = new Person(req.body);
+
+  person.save((err, savedPerson) => {
+    if (err) res.status(500).send(err);
+    console.log(req.body);
+    console.log(savedPerson);
+    res.json(savedPerson);
+  });
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Row, Col, Button, ButtonGroup} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 export default class PeopleList extends Component {
   constructor () {
@@ -11,11 +11,26 @@ export default class PeopleList extends Component {
   render () {
     return (
       <div>
-        <Row>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th scope='col'>Name</th>
+              <th scope='col'>Address</th>
+              <th scope='col'>Status</th>
+            </tr>
+          </thead>
+          <tbody>
           {this.props.persons.map((person) => {
-            return <div>{person}</div>;
+            return (
+              <tr key={person.get('id')}>
+                <td>{person.get('name')}</td>
+                <td>{person.get('address')}</td>
+                <td>{person.get('status')}</td>
+              </tr>
+            );
           })}
-        </Row>
+          </tbody>
+        </Table>
       </div>
     );
   }

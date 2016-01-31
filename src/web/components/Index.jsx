@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Grid, Row, Col, Button, ButtonGroup} from 'react-bootstrap';
 import { List } from 'immutable';
+import PeopleList from './PeopleList';
 
 export default class Index extends Component {
 
@@ -28,11 +29,7 @@ export default class Index extends Component {
             </ButtonGroup>
           </Col>
         </Row>
-        <Row>
-          {this.props.persons.map((person) => {
-            return <div>{person}</div>;
-          })}
-        </Row>
+        <PeopleList persons={this.props.persons} />
       </div>
     );
   }
