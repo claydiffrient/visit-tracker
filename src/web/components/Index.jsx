@@ -29,7 +29,7 @@ export default class Index extends Component {
             </ButtonGroup>
           </Col>
         </Row>
-        <PeopleList persons={this.props.persons} />
+        <PeopleList {...this.props} />
       </div>
     );
   }

@@ -14,7 +14,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     handleWillMount () { return dispatch(Actions.getPersons()); },
-    onAddPersonSubmit (request) { return dispatch(Actions.addPerson(request));}
+    onAddPersonSubmit (request) { return dispatch(Actions.addPerson(request));},
+    handleDeletePerson (id) { return dispatch(Actions.deletePerson(id));}
   };
 }
 

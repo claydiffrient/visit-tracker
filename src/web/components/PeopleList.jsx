@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Table } from 'react-bootstrap';
+import { Table, Button, ButtonToolbar } from 'react-bootstrap';
+import Icon from 'react-fa';
 
 export default class PeopleList extends Component {
   constructor () {
@@ -17,15 +18,23 @@ export default class PeopleList extends Component {
               <th scope='col'>Name</th>
               <th scope='col'>Address</th>
               <th scope='col'>Status</th>
+              <th scope='col'>Options</th>
             </tr>
           </thead>
           <tbody>
           {this.props.persons.map((person) => {
             return (
-              <tr key={person.get('id')}>
+              <tr key={person.get('_id')}>
                 <td>{person.get('name')}</td>
                 <td>{person.get('address')}</td>
                 <td>{person.get('status')}</td>
+                <td>
+                  <ButtonToolbar>
+                    <Button bsStyle="danger" onClick={this.props.handleDeletePerson.bind(null, person.get('_id'))}>
+                      <Icon name="trash" /> Delete
+                    </Button>
+                  </ButtonToolbar>
+                </td>
               </tr>
             );
           })}

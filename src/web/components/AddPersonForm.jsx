@@ -18,7 +18,7 @@ export default class AddPersonForm extends Component {
 
     const requestBody = {
       name: this.refs.name.getValue(),
-      address: this.refs.name.getValue(),
+      address: this.refs.address.getValue(),
       status: this.refs.status.getValue()
     }
 
