@@ -7,7 +7,8 @@ import { Nav, NavItem, NavDropdown, Navbar, MenuItem } from 'react-bootstrap';
 
 function mapStateToProps (state) {
   return {
-    persons: state.get('persons')
+    persons: state.get('persons'),
+    modal: state.get('modal')
   };
 }
 
@@ -15,7 +16,9 @@ function mapDispatchToProps (dispatch) {
   return {
     handleWillMount () { return dispatch(Actions.getPersons()); },
     onAddPersonSubmit (request) { return dispatch(Actions.addPerson(request));},
-    handleDeletePerson (id) { return dispatch(Actions.deletePerson(id));}
+    handleDeletePerson (id) { return dispatch(Actions.deletePerson(id));},
+    openAddVisitModal (id) { return dispatch(Actions.openAddVisitModal(id));},
+    closeAddVisitModal () { return dispatch(Actions.closeAddVisitModal());}
   };
 }
 

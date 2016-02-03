@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Table, Button, ButtonToolbar } from 'react-bootstrap';
 import Icon from 'react-fa';
+import AddVisitModal from './AddVisitModal';
 
 export default class PeopleList extends Component {
   constructor () {
     super();
-    console.log(this.props);
   }
 
   render () {
     return (
       <div>
-        <Table striped bordered hover responsive>
+        <Table striped hover responsive>
           <thead>
             <tr>
               <th scope='col'>Name</th>
@@ -30,6 +30,9 @@ export default class PeopleList extends Component {
                 <td>{person.get('status')}</td>
                 <td>
                   <ButtonToolbar>
+                    <Button bsStyle="primary" onClick={this.props.openAddVisitModal.bind(null, person.get('_id'))}>
+                      <Icon name="sticky-note" /> Add Visit
+                    </Button>
                     <Button bsStyle="danger" onClick={this.props.handleDeletePerson.bind(null, person.get('_id'))}>
                       <Icon name="trash" /> Delete
                     </Button>
@@ -40,6 +43,7 @@ export default class PeopleList extends Component {
           })}
           </tbody>
         </Table>
+        <AddVisitModal {...this.props} />
       </div>
     );
   }

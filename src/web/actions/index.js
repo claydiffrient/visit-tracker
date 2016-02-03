@@ -11,6 +11,12 @@ export const addedPerson = createAction(ADDED_PERSON);
 export const DELETED_PERSON = 'DELETED_PERSON';
 export const deletedPerson = createAction(DELETED_PERSON);
 
+export const OPEN_ADD_VISIT_MODAL = 'OPEN_ADD_VISIT_MODAL';
+export const openAddVisitModal = createAction(OPEN_ADD_VISIT_MODAL);
+
+export const CLOSE_ADD_VISIT_MODAL = 'CLOSE_ADD_VISIT_MODAL';
+export const closeAddVisitModal = createAction(CLOSE_ADD_VISIT_MODAL);
+
 const API_BASE_URL = 'http://visitapi.docker';
 
 export const getPersons = (ajaxLib = axios) => {
