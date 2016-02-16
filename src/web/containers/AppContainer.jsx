@@ -18,7 +18,8 @@ function mapDispatchToProps (dispatch) {
     onAddPersonSubmit (request) { return dispatch(Actions.addPerson(request));},
     handleDeletePerson (id) { return dispatch(Actions.deletePerson(id));},
     openAddVisitModal (id) { return dispatch(Actions.openAddVisitModal(id));},
-    closeAddVisitModal () { return dispatch(Actions.closeAddVisitModal());}
+    closeAddVisitModal () { return dispatch(Actions.closeAddVisitModal());},
+    handleAddVisit (visit) { return dispatch(Actions.addVisit(visit));}
   };
 }
 

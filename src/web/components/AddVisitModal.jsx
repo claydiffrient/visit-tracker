@@ -5,10 +5,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 export default class AddVisitModal extends Component {
   constructor () {
     super();
+
+    this.handleSaveClicked = this.handleSaveClicked.bind(this);
   }
 
   handleSaveClicked () {
-    console.log('NOT IMPLEMENTED YET');
+    console.log(this.props);
+    this.props.handleAddVisit({
+      personId: this.props.modal.get('userId'),
+      date: this.refs.visitDate.value,
+      notes: this.refs.notes.value
+    });
   }
 
   render () {
@@ -31,11 +38,11 @@ export default class AddVisitModal extends Component {
             <form>
               <div className="form-group">
                 <label htmlFor="visit_date">Visit Date</label>
-                <input type="date" className="form-control" id="visit_date" placeholder="Date" />
+                <input type="date" className="form-control" id="visit_date" ref="visitDate" placeholder="Date" />
               </div>
               <div className="form-group">
                 <label htmlFor="visit_notes">Notes</label>
-                <textarea className="form-control" id="visit_notes" placeholder="Notes" />
+                <textarea className="form-control" id="visit_notes" ref="notes" placeholder="Notes" />
               </div>
             </form>
           </div>

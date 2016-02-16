@@ -17,6 +17,9 @@ export const openAddVisitModal = createAction(OPEN_ADD_VISIT_MODAL);
 export const CLOSE_ADD_VISIT_MODAL = 'CLOSE_ADD_VISIT_MODAL';
 export const closeAddVisitModal = createAction(CLOSE_ADD_VISIT_MODAL);
 
+export const ADDED_VISIT = 'ADDED_VISIT';
+export const addedVisit = createAction(ADDED_VISIT);
+
 const API_BASE_URL = 'http://visitapi.docker';
 
 export const getPersons = (ajaxLib = axios) => {
@@ -48,4 +51,13 @@ export const deletePerson = (personId, ajaxLib = axios) => {
              dispatch(deletedPerson(response.data));
            });
   };
+};
+
+export const addVisit = ({personId, date, notes}, ajaxLib = axios) => {
+  return (dispatch, getState) => {
+    ajaxLib.post(`${API_BASE_URL}/persons/${personId}/visit`)
+           .then((response) => {
+             dispatch(addedVisit(response.data));
+           });
+  }
 };

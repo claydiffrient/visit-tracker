@@ -27,7 +27,7 @@ const ROOT_REDUCER = handleActions({
   [Actions.OPEN_ADD_VISIT_MODAL]: (state = initialState, action) => {
     return state.set('modal', fromJS({
       showing: true,
-      userId: action.payload.id
+      userId: action.payload
     }));
   },
 
