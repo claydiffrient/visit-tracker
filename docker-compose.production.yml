@@ -1,0 +1,40 @@
+api:
+  build: ./src/api
+  dockerfile: Dockerfile-production
+  volumes:
+    - "./src/api:/usr/src/app"
+  command: dumb-init npm run dev
+  environment:
+    PORT: 5000
+    NODE_ENV: production
+  links:
+    - mongo
+
+# api_test:
+#   build: ./src/api
+#   volumes:
+#     - "./src/api:/usr/src/app"
+#   command: dumb-init npm test
+#   environment:
+#     NODE_ENV: test
+
+web:
+  build: ./src/web
+  # dockerfile: Dockerfile.dev
+  volumes:
+    - "./src/web:/usr/src/app"
+  command: dumb-init npm run dev
+  ports:
+    - "8080:8080"
+  environment:
+    NODE_ENV: development
+    PORT: 8080
+    VIRTUAL_PORT: 8080
+    VIRTUAL_HOST: visit.docker
+  links:
+    - api
+
+mongo:
+  image: mongo:3.2
+  ports:
+    - "27017:27017"
