@@ -1,5 +1,6 @@
 api:
   build: ./src/api
+  dockerfile: Dockerfile-dev
   volumes:
     - "./src/api:/usr/src/app"
   command: dumb-init npm run dev
@@ -10,13 +11,13 @@ api:
   links:
     - mongo
 
-api_test:
-  build: ./src/api
-  volumes:
-    - "./src/api:/usr/src/app"
-  command: dumb-init npm test
-  environment:
-    NODE_ENV: test
+# api_test:
+#   build: ./src/api
+#   volumes:
+#     - "./src/api:/usr/src/app"
+#   command: dumb-init npm test
+#   environment:
+#     NODE_ENV: test
 
 web:
   build: ./src/web
