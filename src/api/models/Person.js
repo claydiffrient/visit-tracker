@@ -7,12 +7,13 @@ const personSchema = new Schema({
   status: String,
   visits: [{type: Schema.Types.ObjectId, ref: 'Visit'}],
   created_at: Date,
-  updated_at: Date
+  created_by: String,
+  updated_at: Date,
+  updated_by: String
 });
 
 personSchema.pre('save', (next) => {
   const currentDate = new Date();
-
   this.updated_at = currentDate;
 
   if (!this.created_at) {

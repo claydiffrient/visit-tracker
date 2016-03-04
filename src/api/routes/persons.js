@@ -44,12 +44,14 @@ router.get('/', auth, (req, res) => {
  * @apiUse Person
  *
  */
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
   const person = new Person(req.body);
+
+  person.created_by = req.user.username;
 
   person.save((err, savedPerson) => {
     if (err) return res.status(500).send(err);
-    console.log(req.body);
+    console.log(req.user.username);
     console.log(savedPerson);
     res.json(savedPerson);
   });

@@ -33,17 +33,21 @@ userSchema.statics.generateHashAndSalt = (password) => {
   return {password_salt, password_hash};
 };
 
-userSchema.methods.generateJWT = () => {
+userSchema.statics.generateJWT = (username) => {
   const today = new Date();
   const exp = new Date(today);
 
   exp.setDate(today.getDate() + 60);
-
   return jwt.sign({
-    username: this.username,
+    username: username,
     exp: parseInt(exp.getTime() / 1000, 10)
   }, config.get('jwt.secret'));
 };
+
+userSchema.methods.validPassword = function (password) {
+  const hash = crypto.pbkdf2Sync(new Buffer(password, 'binary'), this.password_salt, 1000, 64).toString('hex');
+  return this.password_hash === hash;
+}
 
 const User = mongoose.model('User', userSchema);
 

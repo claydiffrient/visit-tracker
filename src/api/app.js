@@ -11,6 +11,7 @@ const cors = require('cors');
 
 let app = express();
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.get('DB.url'));
 
 app.models = require('./models');
@@ -42,14 +43,13 @@ passport.use(new Strategy({},
   (username, password, done) => {
     User.findOne({ 'username': username })
         .then((user) => {
-          console.log('User');
-          console.log(user);
+          if (!user.validPassword(password)) {
+            return done(null, false, { message: 'Incorrect password'});
+          }
           return done(null, user);
         })
         .catch((err) => {
-          console.log('Err');
-          console.log(err);
-
+          return done(err, false, { message: 'Incorrect username'});
         });
 
   }
