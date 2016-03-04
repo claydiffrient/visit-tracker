@@ -1,5 +1,8 @@
 {
   "DB": {
     "url": "MONGO_URL"
+  },
+  "jwt": {
+    "secret": "JWT_SECRET"
   }
 }

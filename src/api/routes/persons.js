@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const auth = require('../utils/authHelpers').auth;
 
 const Person = mongoose.model('Person');
 const Visit = mongoose.model('Visit');
@@ -27,7 +28,7 @@ const Visit = mongoose.model('Visit');
  * @apiUse Person
  *
  */
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   Person.find({}, (err, persons) => {
     if (err) return res.status(500).send(err);
     res.json(persons);

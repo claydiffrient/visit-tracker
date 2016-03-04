@@ -18,6 +18,7 @@ app.models = require('./models');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const persons = require('./routes/persons');
+const authentication = require('./routes/authentication');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +33,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const User = mongoose.model('User');
+
+// Set up the local strategy
+passport.use(new Strategy({},
+  (username, password, done) => {
+    User.findOne({ 'username': username })
+        .then((user) => {
+          console.log('User');
+          console.log(user);
+          return done(null, user);
+        })
+        .catch((err) => {
+          console.log('Err');
+          console.log(err);
+
+        });
+
+  }
+));
+
+app.use(passport.initialize());
+
+
 app.use('/', routes);
+app.use('/auth', authentication)
 app.use('/users', users);
 app.use('/persons', persons);
 
