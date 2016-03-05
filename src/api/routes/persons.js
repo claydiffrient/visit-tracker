@@ -29,10 +29,12 @@ const Visit = mongoose.model('Visit');
  *
  */
 router.get('/', auth, (req, res) => {
-  Person.find({}, (err, persons) => {
-    if (err) return res.status(500).send(err);
-    res.json(persons);
-  });
+  Person.find({})
+        .populate('visits')
+        .exec((err, persons) => {
+          if (err) return res.status(500).send(err);
+          res.json(persons);
+        });
 });
 
 /**
@@ -71,7 +73,7 @@ router.post('/', auth, (req, res) => {
  * @apiSuccess    {Boolean} deletedPerson.deleted  Indicates if the deletion was successful
  *
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
   Person.findByIdAndRemove(req.params.id, (err, person) => {
     if (err) return res.status(500).send(err);
     res.json({
@@ -88,14 +90,27 @@ router.delete('/:id', (req, res) => {
  *
  * @apiVersion 1.0.0
  *
- * @apiParam  {Number}  id  Unique id for the person
+ * @apiParam  {Number}  id              Unique id for the person
  *
+ * @apiParam  {String}  notes           Notes about the visit
+ * @apiParam  {Date}    date_visited    The date the visit occurred
  *
  */
-router.post('/:id/visit', (req, res) => {
+router.post('/:id/visit', auth, (req, res) => {
   Person.findById(req.params.id, (err, person) => {
     if (err) return res.status(500).send(err);
-    const visit = new Visit()
+    const visit = new Visit(req.body);
+
+    visit.save((err, savedVisit) => {
+      if (err) return res.status(500).send(err);
+
+      person.visits.push(savedVisit._id);
+
+      person.save(function (err, savedPerson) {
+        if (err) return res.status(500).send(err);
+        res.json(savedVisit);
+      })
+    });
   });
 });
 
