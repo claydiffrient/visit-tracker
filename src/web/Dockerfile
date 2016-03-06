@@ -11,6 +11,6 @@ RUN wget https://github.com/Yelp/dumb-init/releases/download/v0.5.0/dumb-init_0.
 RUN dpkg -i dumb-init_*.deb
 
 RUN npm install
-RUN npm run api-docs
+RUN npm run docs
 
 CMD ["dumb-init", "npm", "start"]
