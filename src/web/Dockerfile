@@ -12,5 +12,6 @@ RUN dpkg -i dumb-init_*.deb
 
 RUN npm install
 RUN npm run docs
+RUN npm run build
 
 CMD ["dumb-init", "npm", "start"]
