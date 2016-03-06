@@ -21,7 +21,7 @@ api:
 
 web:
   build: ./src/web
-  # dockerfile: Dockerfile.dev
+  dockerfile: Dockerfile-dev
   volumes:
     - "./src/web:/usr/src/app"
   command: dumb-init npm run dev
