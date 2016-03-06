@@ -20,7 +20,7 @@ export const closeAddVisitModal = createAction(CLOSE_ADD_VISIT_MODAL);
 export const ADDED_VISIT = 'ADDED_VISIT';
 export const addedVisit = createAction(ADDED_VISIT);
 
-const API_BASE_URL = process.env.API_URL || 'http://visitapi.docker';
+const API_BASE_URL = API_URL || 'http://visitapi.docker';
 
 export const getPersons = (ajaxLib = axios) => {
   return (dispatch, getState) => {
