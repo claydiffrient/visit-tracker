@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var ConfigPlugin = require('webpack-config-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-// var bootstrapPath = path.join(__dirname, '')
+
 
 module.exports = {
   entry: {
@@ -25,7 +25,7 @@ module.exports = {
     }),
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
-      'API_URL': process.env.API_URL
+      'API_URL': JSON.stringify(process.env.API_URL)
     })
   ],
   resolve: {

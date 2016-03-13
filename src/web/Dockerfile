@@ -2,6 +2,9 @@ FROM node:5
 EXPOSE 5000
 
 ENV APP_HOME /usr/src/app
+ARG API_BASE
+
+RUN echo $API_URL
 
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
@@ -12,6 +15,6 @@ RUN dpkg -i dumb-init_*.deb
 
 RUN npm install
 RUN npm run docs
-RUN npm run build
+RUN API_URL=${API_BASE} npm run build
 
 CMD ["dumb-init", "npm", "start"]
