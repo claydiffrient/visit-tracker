@@ -10,11 +10,14 @@ import AppContainer from './containers/AppContainer';
 import Index from './components/Index';
 import PeopleList from './components/PeopleList';
 import AddPersonForm from './components/AddPersonForm';
+import UnAuthPage from './components/UnAuthPage';
+import LoginPage from './components/LoginPage';
 
 const store = configureStore(initialState);
 
 function renderIndex () {
-  render(
+  if (store.person) {
+    render(
     (
       <Provider store={store}>
         <AppContainer>
@@ -22,12 +25,15 @@ function renderIndex () {
         </AppContainer>
       </Provider>
     ), window.document.getElementById('main'));
+  } else {
+    renderUnAuthPage();
+  }
 }
 
 function renderPeople () {
   render(
     (
-      <Provider store={store}>
+     <Provider store={store}>
         <AppContainer>
           <AddPersonForm />
           <PeopleList />
@@ -36,8 +42,27 @@ function renderPeople () {
     ), window.document.getElementById('main'));
 }
 
+function renderUnAuthPage () {
+  render(
+    (
+      <Provider store={store}>
+        <UnAuthPage />
+      </Provider>
+    ), window.document.getElementById('main'));
+}
+
+function renderLoginPage () {
+  render(
+    (
+      <Provider store={store}>
+        <LoginPage />
+      </Provider>
+    ), window.document.getElementById('main'));
+}
+
 page('/', renderIndex);
 page('/people', renderPeople);
+page('/auth/login', renderLoginPage);
 page();
 
 // class Main extends Component {

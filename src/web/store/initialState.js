@@ -5,7 +5,8 @@ const initialState = Map({
   modal: Map({
     showing: false,
     userId: ''
-  })
+  }),
+  user: false
 });
 
 export default initialState;

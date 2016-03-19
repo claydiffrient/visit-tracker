@@ -1,0 +1,44 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #2196F3;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.UnAuth__Container {
+  width: 500px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+}
+
+.UnAuth__Container-Button {
+  width: 100%;
+  padding: 1.5em;
+  margin: 10px 0;
+  background-color: #448AFF;
+  color: #fff;
+  line-height: 32px;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border: solid #448AFF 2px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.UnAuth__Container-Button:hover {
+  text-decoration: none;
+  background-color: #82B1FF;
+  border: solid #82B1FF 2px;
+}

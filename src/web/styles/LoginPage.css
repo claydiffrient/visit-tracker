@@ -1,0 +1,20 @@
+.Button {
+  width: 40%;
+  padding: 0.4em;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background-color: #448AFF;
+  color: #fff;
+  line-height: 32px;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border: solid #448AFF 2px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.Button:hover {
+  text-decoration: none;
+  background-color: #82B1FF;
+  border: solid #82B1FF 2px;
+}
