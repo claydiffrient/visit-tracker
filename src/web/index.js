@@ -13,6 +13,7 @@ import PeopleList from './components/PeopleList';
 import AddPersonForm from './components/AddPersonForm';
 import UnAuthPage from './components/UnAuthPage';
 import LoginPage from './components/LoginPage';
+import UserSettingsForm from './components/UserSettingsForm'
 
 const store = configureStore(initialState);
 
@@ -43,6 +44,17 @@ function renderPeople () {
     ), window.document.getElementById('main'));
 }
 
+function renderUserSettings () {
+  render(
+    (
+     <Provider store={store}>
+        <AppContainer>
+          <UserSettingsForm />
+        </AppContainer>
+      </Provider>
+    ), window.document.getElementById('main'));
+}
+
 // function renderUnAuthPage () {
 //   render(
 //     (
@@ -66,4 +78,5 @@ function renderLoginPage () {
 page('/', renderIndex);
 page('/people', renderPeople);
 page('/auth/login', renderLoginPage);
+page('/settings', renderUserSettings);
 page();

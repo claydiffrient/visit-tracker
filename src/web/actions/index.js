@@ -29,6 +29,9 @@ export const loggedInUser = createAction(LOGGED_IN_USER);
 export const LOGGED_OUT_USER = 'LOGGED_OUT_USER';
 export const loggedOutUser = createAction(LOGGED_OUT_USER);
 
+export const UPDATED_PASSWORD = 'UPDATED_PASSWORD';
+export const updatedPassword = createAction(UPDATED_PASSWORD);
+
 const API_BASE_URL = API_URL || 'http://visitapi.docker';
 
 export const getPersons = (ajaxLib = axios) => {
@@ -81,5 +84,14 @@ export const logoutUser = () => {
   return (dispatch, getState) => {
     deleteToken();
     dispatch(loggedOutUser());
+  };
+}
+
+export const updatePassword = (updatePassObj, ajaxLib = axios) => {
+  return (dispatch, getState) => {
+    ajaxLib.put(`${API_BASE_URL}/auth/password`, updatePassObj)
+           .then((response) => {
+             dispatch(updatedPassword())
+           })
   };
 }

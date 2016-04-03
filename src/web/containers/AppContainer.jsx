@@ -22,7 +22,8 @@ function mapDispatchToProps (dispatch) {
     openAddVisitModal (id) { return dispatch(Actions.openAddVisitModal(id));},
     closeAddVisitModal () { return dispatch(Actions.closeAddVisitModal());},
     handleAddVisit (visit) { return dispatch(Actions.addVisit(visit));},
-    handleLogout () { return dispatch(Actions.logoutUser());}
+    handleLogout () { return dispatch(Actions.logoutUser());},
+    handleUpdatePassword (updateObj) { return dispatch(Actions.updatePassword(updateObj)); }
   };
 }
 
@@ -62,7 +63,7 @@ class App extends Component {
               </Nav>
               <Nav pullRight>
                 <NavDropdown eventKey={1} title={username}>
-                  <NavItem eventKey={1.1}>Settings</NavItem>
+                  <NavItem eventKey={1.1} href="/settings">Settings</NavItem>
                   <NavItem eventKey={1.2} onClick={this.props.handleLogout}>Logout</NavItem>
                 </NavDropdown>
               </Nav>
