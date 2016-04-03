@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const auth = require('../utils/authHelpers').auth;
 
 const User = mongoose.model('User');
 
@@ -59,6 +60,32 @@ router.post('/login', (req, res, next) => {
       return res.status(401).json(info);
     }
   })(req, res, next);
+});
+
+router.put('/password', auth, (req, res, next) => {
+  console.log(req.body);
+  if (!req.body.old || !req.body.new) {
+    return res.status(400).json({message: 'You must provide the old password and the new password'});
+  }
+
+  User.findOne({username: req.user.username})
+      .exec()
+      .then((user) => {
+        if (!user.validPassword(req.body.old)) {
+          return res.status(401).json({ message: 'Incorrect old password'});
+        }
+        const saltAndHash = User.generateHashAndSalt(req.body.new);
+
+        user
+          .update({
+            password_salt: saltAndHash.password_salt,
+            password_hash: saltAndHash.password_hash
+          })
+          .exec()
+          .then(() => {
+            return res.json({message: 'Password updated'});
+          });
+      });
 });
 
 
