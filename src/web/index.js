@@ -6,6 +6,7 @@ import initialState from './store/initialState';
 import configureStore from './store/configureStore';
 
 import AppContainer from './containers/AppContainer';
+import LoginContainer from './containers/LoginContainer';
 
 import Index from './components/Index';
 import PeopleList from './components/PeopleList';
@@ -16,7 +17,7 @@ import LoginPage from './components/LoginPage';
 const store = configureStore(initialState);
 
 function renderIndex () {
-  if (store.person) {
+  if (store.getState().get('user')) {
     render(
     (
       <Provider store={store}>
@@ -26,7 +27,7 @@ function renderIndex () {
       </Provider>
     ), window.document.getElementById('main'));
   } else {
-    renderUnAuthPage();
+    renderLoginPage();
   }
 }
 
@@ -42,20 +43,22 @@ function renderPeople () {
     ), window.document.getElementById('main'));
 }
 
-function renderUnAuthPage () {
-  render(
-    (
-      <Provider store={store}>
-        <UnAuthPage />
-      </Provider>
-    ), window.document.getElementById('main'));
-}
+// function renderUnAuthPage () {
+//   render(
+//     (
+//       <Provider store={store}>
+//         <UnAuthPage />
+//       </Provider>
+//     ), window.document.getElementById('main'));
+// }
 
 function renderLoginPage () {
   render(
     (
       <Provider store={store}>
-        <LoginPage />
+        <LoginContainer>
+          <LoginPage />
+        </LoginContainer>
       </Provider>
     ), window.document.getElementById('main'));
 }
@@ -64,13 +67,3 @@ page('/', renderIndex);
 page('/people', renderPeople);
 page('/auth/login', renderLoginPage);
 page();
-
-// class Main extends Component {
-//   render () {
-//     return (
-//       <div>Testing 3</div>
-//     );
-//   }
-// }
-
-// render(<Main />, window.document.getElementById('main'));

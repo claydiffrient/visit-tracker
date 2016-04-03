@@ -1,6 +1,9 @@
 import { createAction } from 'redux-actions';
-import axios from 'axios';
-// import config from 'config';
+import axiosLib from 'axios';
+
+import { configureAxios, deleteToken } from '../utils';
+
+const axios = configureAxios(axiosLib)
 
 export const GOT_PERSONS = 'GOT_PERSONS';
 export const gotPersons = createAction(GOT_PERSONS);
@@ -19,6 +22,12 @@ export const closeAddVisitModal = createAction(CLOSE_ADD_VISIT_MODAL);
 
 export const ADDED_VISIT = 'ADDED_VISIT';
 export const addedVisit = createAction(ADDED_VISIT);
+
+export const LOGGED_IN_USER = 'LOGGED_IN_USER';
+export const loggedInUser = createAction(LOGGED_IN_USER);
+
+export const LOGGED_OUT_USER = 'LOGGED_OUT_USER';
+export const loggedOutUser = createAction(LOGGED_OUT_USER);
 
 const API_BASE_URL = API_URL || 'http://visitapi.docker';
 
@@ -58,3 +67,19 @@ export const addVisit = ({personId, date, notes}, ajaxLib = axios) => {
            });
   }
 };
+
+export const loginUser = (request, ajaxLib = axios) => {
+  return (dispatch, getState) => {
+    ajaxLib.post(`${API_BASE_URL}/auth/login`, request)
+           .then((response) => {
+             dispatch(loggedInUser(response.data));
+           });
+  };
+}
+
+export const logoutUser = () => {
+  return (dispatch, getState) => {
+    deleteToken();
+    dispatch(loggedOutUser());
+  };
+}

@@ -4,11 +4,13 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Nav, NavItem, NavDropdown, Navbar, MenuItem } from 'react-bootstrap';
+import page from 'page';
 
 function mapStateToProps (state) {
   return {
     persons: state.get('persons'),
-    modal: state.get('modal')
+    modal: state.get('modal'),
+    user: state.get('user')
   };
 }
 
@@ -19,7 +21,8 @@ function mapDispatchToProps (dispatch) {
     handleDeletePerson (id) { return dispatch(Actions.deletePerson(id));},
     openAddVisitModal (id) { return dispatch(Actions.openAddVisitModal(id));},
     closeAddVisitModal () { return dispatch(Actions.closeAddVisitModal());},
-    handleAddVisit (visit) { return dispatch(Actions.addVisit(visit));}
+    handleAddVisit (visit) { return dispatch(Actions.addVisit(visit));},
+    handleLogout () { return dispatch(Actions.logoutUser());}
   };
 }
 
@@ -32,13 +35,22 @@ class App extends Component {
     this.props.handleWillMount();
   }
 
+  componentWillReceiveProps (nextProps) {
+    if ((this.props.user) && (!nextProps.user)) {
+      page('/');
+    }
+  }
+
   render () {
+
+    const username = (this.props.user) ? this.props.user.get('username') : ''
+
     return (
-      <Grid fluid={true}>
-        <Navbar inverse fixedTop>
+      <Grid>
+        <Navbar fixedTop>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="#">Visit Tracker</a>
+                <a href="/">Visit Tracker</a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -47,6 +59,12 @@ class App extends Component {
                 <NavItem eventKey={1} href="#">Last Visited</NavItem>
                 <NavItem eventKey={2} href="#">Visits</NavItem>
                 <NavItem eventKey={3} href="/people">People</NavItem>
+              </Nav>
+              <Nav pullRight>
+                <NavDropdown eventKey={1} title={username}>
+                  <NavItem eventKey={1.1}>Settings</NavItem>
+                  <NavItem eventKey={1.2} onClick={this.props.handleLogout}>Logout</NavItem>
+                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
           </Navbar>

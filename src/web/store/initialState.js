@@ -1,4 +1,6 @@
 import { List, Map } from 'immutable';
+import { getUserState } from '../utils';
+
 
 const initialState = Map({
   persons: List([]),
@@ -6,7 +8,7 @@ const initialState = Map({
     showing: false,
     userId: ''
   }),
-  user: false
+  user: getUserState()
 });
 
 export default initialState;

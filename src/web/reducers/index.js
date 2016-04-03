@@ -2,6 +2,8 @@ import * as Actions from '../actions';
 import { handleActions } from 'redux-actions';
 import initialState from '../store/initialState';
 import { fromJS } from 'immutable';
+import { getUserState, deleteToken } from '../utils';
+import page from 'page';
 
 const ROOT_REDUCER = handleActions({
   [Actions.GOT_PERSONS]: (state = initialState, action) => {
@@ -36,6 +38,14 @@ const ROOT_REDUCER = handleActions({
       showing: false,
       userId: ''
     }));
+  },
+
+  [Actions.LOGGED_IN_USER]: (state = initialState, action) => {
+    return state.set('user', getUserState());
+  },
+
+  [Actions.LOGGED_OUT_USER]: (state = initialState, action) => {
+    return state.set('user', null);
   }
 });
 
