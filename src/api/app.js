@@ -43,14 +43,18 @@ const User = mongoose.model('User');
 passport.use(new Strategy({},
   (username, password, done) => {
     User.findOne({ 'username': username })
+        .exec()
         .then((user) => {
+          if (!user) {
+            return done(null, false, { message: 'Incorrect username'});
+          }
           if (!user.validPassword(password)) {
             return done(null, false, { message: 'Incorrect password'});
           }
           return done(null, user);
         })
         .catch((err) => {
-          return done(err, false, { message: 'Incorrect username'});
+          return done(err, false);
         });
 
   }
