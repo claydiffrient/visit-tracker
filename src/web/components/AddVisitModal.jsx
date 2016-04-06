@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default class AddVisitModal extends Component {
   constructor () {
     super();
-
     this.handleSaveClicked = this.handleSaveClicked.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.state = {
+      visitDate: moment()
+    };
+  }
+
+  handleDateChange (date) {
+    this.setState({
+      visitDate: date
+    });
   }
 
   handleSaveClicked () {
     console.log(this.props);
     this.props.handleAddVisit({
       personId: this.props.modal.get('userId'),
-      date: this.refs.visitDate.value,
+      date: this.state.visitDate.toDate(),
       notes: this.refs.notes.value
     });
   }
@@ -38,7 +50,15 @@ export default class AddVisitModal extends Component {
             <form>
               <div className="form-group">
                 <label htmlFor="visit_date">Visit Date</label>
-                <input type="date" className="form-control" id="visit_date" ref="visitDate" placeholder="Date" />
+                <DatePicker
+                  showTodayButton={'Today'}
+                  selected={this.state.visitDate}
+                  onChange={this.handleDateChange}
+                  ref="visitDate"
+                  id="visit_date"
+                  className="form-control"
+                  placeholderText="Date"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="visit_notes">Notes</label>

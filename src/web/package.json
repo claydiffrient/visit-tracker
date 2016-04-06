@@ -24,6 +24,7 @@
     "page": "^1.6.4",
     "react": "^0.14.6",
     "react-bootstrap": "^0.28.2",
+    "react-datepicker": "^0.25.0",
     "react-dom": "^0.14.6",
     "react-fa": "^4.0.0",
     "react-modal": "^0.6.1",

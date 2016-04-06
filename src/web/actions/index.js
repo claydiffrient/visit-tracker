@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import axiosLib from 'axios';
+import _ from 'lodash';
 
 import { configureAxios, deleteToken } from '../utils';
 
@@ -38,7 +39,6 @@ export const getPersons = (ajaxLib = axios) => {
   return (dispatch, getState) => {
     ajaxLib.get(`${API_BASE_URL}/persons`)
            .then((response) => {
-             console.log('here2');
              dispatch(gotPersons(response.data));
            });
   };
@@ -64,7 +64,13 @@ export const deletePerson = (personId, ajaxLib = axios) => {
 
 export const addVisit = ({personId, date, notes}, ajaxLib = axios) => {
   return (dispatch, getState) => {
-    ajaxLib.post(`${API_BASE_URL}/persons/${personId}/visit`)
+    const request = {
+      note_entered_by: getState().get('user').get('id'),
+      date_visited: date,
+      person: personId,
+      notes
+    };
+    ajaxLib.post(`${API_BASE_URL}/persons/${personId}/visit`, request)
            .then((response) => {
              dispatch(addedVisit(response.data));
            });

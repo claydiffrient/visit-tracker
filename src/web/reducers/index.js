@@ -40,6 +40,13 @@ const ROOT_REDUCER = handleActions({
     }));
   },
 
+  [Actions.ADDED_VISIT]: (state = initialState, action) => {
+    return state.set('modal', fromJS({
+      showing: false,
+      userId: ''
+    }));
+  },
+
   [Actions.LOGGED_IN_USER]: (state = initialState, action) => {
     return state.set('user', getUserState());
   },

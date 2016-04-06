@@ -33,6 +33,7 @@ router.get('/', auth, (req, res) => {
         .populate('visits')
         .exec((err, persons) => {
           if (err) return res.status(500).send(err);
+          // const withLastVisit = persons.map((p) => p.toJSON({virtuals: true}));
           res.json(persons);
         });
 });

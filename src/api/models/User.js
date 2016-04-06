@@ -33,12 +33,14 @@ userSchema.statics.generateHashAndSalt = (password) => {
   return {password_salt, password_hash};
 };
 
-userSchema.statics.generateJWT = (username) => {
+userSchema.statics.generateJWT = (username, id) => {
   const today = new Date();
   const exp = new Date(today);
+  const userId = id || '';
 
   exp.setDate(today.getDate() + 60);
   return jwt.sign({
+    id: userId,
     username: username,
     exp: parseInt(exp.getTime() / 1000, 10)
   }, config.get('jwt.secret'));

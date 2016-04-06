@@ -19,6 +19,10 @@ export function getUsername () {
   return parseJWT().username;
 }
 
+export function getUserId () {
+  return parseJWT().id;
+}
+
 export function deleteToken () {
   window.sessionStorage.removeItem('visittracker');
 }
@@ -34,6 +38,7 @@ export function setToken (token) {
 export function getUserState () {
   if (isAuthed()) {
     return Map({
+      id: getUserId(),
       username: getUsername(),
       rawDetails: parseJWT()
     });

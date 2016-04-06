@@ -55,7 +55,7 @@ router.post('/login', (req, res, next) => {
     if (err) { return next(err); }
 
     if (user) {
-      return res.json({token: User.generateJWT(req.body.username)});
+      return res.json({token: User.generateJWT(req.body.username, user._id)});
     } else {
       return res.status(401).json(info);
     }
