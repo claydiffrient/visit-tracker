@@ -23,14 +23,25 @@ personSchema.pre('save', (next) => {
   next();
 });
 
+personSchema.virtual('lastVisit').get(function () {
+  if (this.visits && this.visits.length) {
+    console.log(this.visits[this.visits.length - 1]);
+    return this.visits[this.visits.length - 1];
+  } else {
+    return null;
+  }
+});
+
 personSchema.methods.getLastVisit = () => {
   console.log(this.visits);
   if (this.visits) {
-    return this.visits[this.visits.length];
+    return this.visits[this.visits.length - 1];
   } else {
     return null;
   }
 };
+
+personSchema.set('toJSON', { virtuals: true });
 
 const Person = mongoose.model('Person', personSchema);
 
