@@ -7,12 +7,18 @@ import PeopleList from './PeopleList';
 export default class Index extends Component {
 
   static propTypes = {
-    persons: React.PropTypes.instanceOf(List)
+    filteredPersons: React.PropTypes.instanceOf(List)
   };
 
   constructor () {
     super();
     console.log(this.props);
+
+    this.handleFilter = this.handleFilter.bind(this);
+  }
+
+  handleFilter (filter) {
+    this.props.handleFilter(filter);
   }
 
   render () {
@@ -21,11 +27,11 @@ export default class Index extends Component {
         <Row className='text-center'>
           <Col sm={12}>
             <ButtonGroup>
-              <Button>Not Visited</Button>
-              <Button>12 Months</Button>
-              <Button>6 Months</Button>
-              <Button>3 Months</Button>
-              <Button>1 Month</Button>
+              <Button onClick={this.handleFilter.bind(null, 'never')}>Not Visited</Button>
+              <Button onClick={this.handleFilter.bind(null, '12m')}>12 Months</Button>
+              <Button onClick={this.handleFilter.bind(null, '6m')}>6 Months</Button>
+              <Button onClick={this.handleFilter.bind(null, '3m')}>3 Months</Button>
+              <Button onClick={this.handleFilter.bind(null, '1m')}>1 Month</Button>
             </ButtonGroup>
           </Col>
         </Row>

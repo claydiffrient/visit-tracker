@@ -22,7 +22,7 @@ export default class PeopleList extends Component {
             </tr>
           </thead>
           <tbody>
-          {this.props.persons.map((person) => {
+          {this.props.filteredPersons.map((person) => {
             return (
               <tr key={person.get('_id')}>
                 <td>{person.get('name')}</td>

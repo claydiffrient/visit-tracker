@@ -69,3 +69,23 @@ export function configureAxios (axiosLib, token = getToken()) {
 
   return axiosLib;
 }
+
+export function filterPeopleByLastVisit (state, months, upperLimit) {
+  const today = new Date();
+  const filtered = state.get('persons').filter((p) => {
+    if (p.get('lastVisit')) {
+      const lastVisitDate = new Date(p.get('lastVisit').get('date_visited'));
+      const monthsBetween = today.getMonth() - lastVisitDate.getMonth()
+             + (12 * (today.getFullYear() - lastVisitDate.getFullYear()));
+      if (upperLimit) {
+        return ((monthsBetween >= months) && (monthsBetween < upperLimit));
+      } else {
+        return (monthsBetween >= months);
+      }
+
+    } else {
+      return false;
+    }
+  });
+  return state.set('filteredPersons', filtered);
+}

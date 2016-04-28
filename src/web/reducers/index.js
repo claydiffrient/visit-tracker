@@ -2,14 +2,15 @@ import * as Actions from '../actions';
 import { handleActions } from 'redux-actions';
 import initialState from '../store/initialState';
 import { fromJS } from 'immutable';
-import { getUserState, deleteToken } from '../utils';
+import { getUserState, filterPeopleByLastVisit, deleteToken } from '../utils';
 import page from 'page';
 
 const ROOT_REDUCER = handleActions({
   [Actions.GOT_PERSONS]: (state = initialState, action) => {
     const oldPersons = state.get('persons');
     const newPersons = oldPersons.concat(fromJS(action.payload));
-    return state.set('persons', newPersons);
+    const newState = state.set('persons', newPersons);
+    return newState.set('filteredPersons', newPersons);
   },
 
   [Actions.ADDED_PERSON]: (state = initialState, action) => {
@@ -53,6 +54,39 @@ const ROOT_REDUCER = handleActions({
 
   [Actions.LOGGED_OUT_USER]: (state = initialState, action) => {
     return state.set('user', null);
+  },
+
+  [Actions.SET_FILTER]: (state = initialState, action) => {
+    let filtered = [];
+    if (state.get('filter') === action.payload.filter) {
+      action.payload.filter = 'all';
+    }
+    const newState = state.set('filter', action.payload.filter);
+    switch (action.payload.filter) {
+      case 'all':
+        return newState.set('filteredPersons', state.get('persons'));
+        break;
+      case 'never':
+        filtered = newState.get('persons').filter((p) => {
+          return p.get('lastVisit') == null;
+        });
+        return newState.set('filteredPersons', filtered);
+        break;
+      case '12m':
+        return filterPeopleByLastVisit(newState, 12);
+        break;
+      case '6m':
+        return filterPeopleByLastVisit(newState, 6, 7);
+        break;
+      case '3m':
+        return filterPeopleByLastVisit(newState, 3, 4);
+        break;
+      case '1m':
+        return filterPeopleByLastVisit(newState, 1, 2);
+        break;
+      default:
+        return newState;
+    }
   }
 });
 

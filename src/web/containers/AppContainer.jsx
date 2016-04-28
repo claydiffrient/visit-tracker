@@ -10,7 +10,8 @@ function mapStateToProps (state) {
   return {
     persons: state.get('persons'),
     modal: state.get('modal'),
-    user: state.get('user')
+    user: state.get('user'),
+    filteredPersons: state.get('filteredPersons')
   };
 }
 
@@ -23,7 +24,8 @@ function mapDispatchToProps (dispatch) {
     closeAddVisitModal () { return dispatch(Actions.closeAddVisitModal());},
     handleAddVisit (visit) { return dispatch(Actions.addVisit(visit));},
     handleLogout () { return dispatch(Actions.logoutUser());},
-    handleUpdatePassword (updateObj) { return dispatch(Actions.updatePassword(updateObj)); }
+    handleUpdatePassword (updateObj) { return dispatch(Actions.updatePassword(updateObj)); },
+    handleFilter (filter) { return dispatch(Actions.setFilter({filter})); }
   };
 }
 

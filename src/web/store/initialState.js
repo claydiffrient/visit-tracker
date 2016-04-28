@@ -4,11 +4,13 @@ import { getUserState } from '../utils';
 
 const initialState = Map({
   persons: List([]),
+  filteredPersons: List([]),
   modal: Map({
     showing: false,
     userId: ''
   }),
-  user: getUserState()
+  user: getUserState(),
+  filter: 'all'
 });
 
 export default initialState;

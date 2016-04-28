@@ -33,6 +33,9 @@ export const loggedOutUser = createAction(LOGGED_OUT_USER);
 export const UPDATED_PASSWORD = 'UPDATED_PASSWORD';
 export const updatedPassword = createAction(UPDATED_PASSWORD);
 
+export const SET_FILTER = 'SET_FILTER';
+export const setFilter = createAction(SET_FILTER);
+
 const API_BASE_URL = API_URL || 'http://visitapi.docker';
 
 export const getPersons = (ajaxLib = axios) => {
