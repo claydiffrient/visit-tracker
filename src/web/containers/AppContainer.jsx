@@ -11,7 +11,8 @@ function mapStateToProps (state) {
     persons: state.get('persons'),
     modal: state.get('modal'),
     user: state.get('user'),
-    filteredPersons: state.get('filteredPersons')
+    filteredPersons: state.get('filteredPersons'),
+    visits: state.get('visits')
   };
 }
 
@@ -25,7 +26,8 @@ function mapDispatchToProps (dispatch) {
     handleAddVisit (visit) { return dispatch(Actions.addVisit(visit));},
     handleLogout () { return dispatch(Actions.logoutUser());},
     handleUpdatePassword (updateObj) { return dispatch(Actions.updatePassword(updateObj)); },
-    handleFilter (filter) { return dispatch(Actions.setFilter({filter})); }
+    handleFilter (filter) { return dispatch(Actions.setFilter({filter})); },
+    handleVisitListWillMount () { return dispatch(Actions.getVisits()); }
   };
 }
 
@@ -59,9 +61,8 @@ class App extends Component {
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav>
-                <NavItem eventKey={1} href="#">Last Visited</NavItem>
-                <NavItem eventKey={2} href="#">Visits</NavItem>
-                <NavItem eventKey={3} href="/people">People</NavItem>
+                <NavItem eventKey={1} href="/visits">Visits</NavItem>
+                <NavItem eventKey={2} href="/people">People</NavItem>
               </Nav>
               <Nav pullRight>
                 <NavDropdown eventKey={1} title={username}>

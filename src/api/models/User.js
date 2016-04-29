@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
 const userSchema = new Schema({
   name: String,
   username: { type: String, required: true, unique: true },
-  password_hash: { type: String, required: true },
-  password_salt: { type: String, required: true },
+  password_hash: { type: String, required: true, select: false },
+  password_salt: { type: String, required: true, select: false },
   email: { type: String, required: true },
   admin: Boolean,
   created_at: Date,

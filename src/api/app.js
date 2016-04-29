@@ -43,6 +43,8 @@ const User = mongoose.model('User');
 passport.use(new Strategy({},
   (username, password, done) => {
     User.findOne({ 'username': username })
+        .select('+password_salt')
+        .select('+password_hash')
         .exec()
         .then((user) => {
           if (!user) {

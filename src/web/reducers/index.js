@@ -13,6 +13,12 @@ const ROOT_REDUCER = handleActions({
     return newState.set('filteredPersons', newPersons);
   },
 
+  [Actions.GOT_VISITS]: (state = initialState, action) => {
+    const oldVisits = state.get('visits');
+    const newVisits = oldVisits.concat(fromJS(action.payload));
+    return state.set('visits', newVisits);
+  },
+
   [Actions.ADDED_PERSON]: (state = initialState, action) => {
     const oldPersons = state.get('persons');
     const newPersons = oldPersons.push(fromJS(action.payload));

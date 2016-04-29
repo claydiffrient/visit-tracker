@@ -10,8 +10,8 @@ import LoginContainer from './containers/LoginContainer';
 
 import Index from './components/Index';
 import PeopleList from './components/PeopleList';
+import VisitList from './components/VisitList';
 import AddPersonForm from './components/AddPersonForm';
-import UnAuthPage from './components/UnAuthPage';
 import LoginPage from './components/LoginPage';
 import UserSettingsForm from './components/UserSettingsForm'
 
@@ -55,14 +55,16 @@ function renderUserSettings () {
     ), window.document.getElementById('main'));
 }
 
-// function renderUnAuthPage () {
-//   render(
-//     (
-//       <Provider store={store}>
-//         <UnAuthPage />
-//       </Provider>
-//     ), window.document.getElementById('main'));
-// }
+function renderVisits () {
+  render(
+    (
+     <Provider store={store}>
+        <AppContainer>
+          <VisitList />
+        </AppContainer>
+      </Provider>
+    ), window.document.getElementById('main'));
+}
 
 function renderLoginPage () {
   render(
@@ -77,6 +79,7 @@ function renderLoginPage () {
 
 page('/', renderIndex);
 page('/people', renderPeople);
+page('/visits', renderVisits);
 page('/auth/login', renderLoginPage);
 page('/settings', renderUserSettings);
 page();

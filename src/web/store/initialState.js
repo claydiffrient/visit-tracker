@@ -10,7 +10,8 @@ const initialState = Map({
     userId: ''
   }),
   user: getUserState(),
-  filter: 'all'
+  filter: 'all',
+  visits: List([])
 });
 
 export default initialState;

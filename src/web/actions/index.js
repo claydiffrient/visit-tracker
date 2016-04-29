@@ -4,10 +4,13 @@ import _ from 'lodash';
 
 import { configureAxios, deleteToken } from '../utils';
 
-const axios = configureAxios(axiosLib)
+const axios = configureAxios(axiosLib);
 
 export const GOT_PERSONS = 'GOT_PERSONS';
 export const gotPersons = createAction(GOT_PERSONS);
+
+export const GOT_VISITS = 'GOT_VISITS';
+export const gotVisits = createAction(GOT_VISITS);
 
 export const ADDED_PERSON = 'ADDED_PERSON';
 export const addedPerson = createAction(ADDED_PERSON);
@@ -37,6 +40,15 @@ export const SET_FILTER = 'SET_FILTER';
 export const setFilter = createAction(SET_FILTER);
 
 const API_BASE_URL = API_URL || 'http://visitapi.docker';
+
+export const getVisits = (ajaxLib = axios) => {
+  return (dispatch, getState) => {
+    ajaxLib.get(`${API_BASE_URL}/visits`)
+           .then((response) => {
+             dispatch(gotVisits(response.data));
+           });
+  };
+}
 
 export const getPersons = (ajaxLib = axios) => {
   return (dispatch, getState) => {
