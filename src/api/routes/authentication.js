@@ -27,7 +27,8 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     username: req.body.username,
     password_salt: saltAndHash.password_salt,
-    password_hash: saltAndHash.password_hash
+    password_hash: saltAndHash.password_hash,
+    reset_password: true
   });
 
   user.save(function (err) {
@@ -55,7 +56,7 @@ router.post('/login', (req, res, next) => {
     if (err) { return next(err); }
 
     if (user) {
-      return res.json({token: User.generateJWT(req.body.username, user._id)});
+      return res.json({token: User.generateJWT(req.body.username, user._id, user.reset_password)});
     } else {
       return res.status(401).json(info);
     }
@@ -79,7 +80,8 @@ router.put('/password', auth, (req, res, next) => {
         user
           .update({
             password_salt: saltAndHash.password_salt,
-            password_hash: saltAndHash.password_hash
+            password_hash: saltAndHash.password_hash,
+            reset_password: false
           })
           .exec()
           .then(() => {

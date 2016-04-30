@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const auth = require('../utils/authHelpers').auth;
+const mustReset = require('../utils/authHelpers').mustReset;
 
 const Person = mongoose.model('Person');
 const Visit = mongoose.model('Visit');
@@ -28,7 +29,7 @@ const Visit = mongoose.model('Visit');
  * @apiUse Person
  *
  */
-router.get('/', auth, (req, res) => {
+router.get('/', auth, mustReset, (req, res) => {
   Person.find({})
         .populate('visits')
         .exec((err, persons) => {
@@ -47,7 +48,7 @@ router.get('/', auth, (req, res) => {
  * @apiUse Person
  *
  */
-router.post('/', auth, (req, res) => {
+router.post('/', auth, mustReset, (req, res) => {
   const person = new Person(req.body);
 
   person.created_by = req.user.username;
@@ -74,7 +75,7 @@ router.post('/', auth, (req, res) => {
  * @apiSuccess    {Boolean} deletedPerson.deleted  Indicates if the deletion was successful
  *
  */
-router.delete('/:id', auth, (req, res) => {
+router.delete('/:id', auth, mustReset, (req, res) => {
   Person.findByIdAndRemove(req.params.id, (err, person) => {
     if (err) return res.status(500).send(err);
     res.json({
@@ -97,7 +98,7 @@ router.delete('/:id', auth, (req, res) => {
  * @apiParam  {Date}    date_visited    The date the visit occurred
  *
  */
-router.post('/:id/visit', auth, (req, res) => {
+router.post('/:id/visit', auth, mustReset, (req, res) => {
   Person.findById(req.params.id, (err, person) => {
     if (err) return res.status(500).send(err);
     const visit = new Visit(req.body);

@@ -9,6 +9,7 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password_hash: { type: String, required: true, select: false },
   password_salt: { type: String, required: true, select: false },
+  reset_password: Boolean,
   email: { type: String, required: true },
   admin: Boolean,
   created_at: Date,
@@ -33,7 +34,7 @@ userSchema.statics.generateHashAndSalt = (password) => {
   return {password_salt, password_hash};
 };
 
-userSchema.statics.generateJWT = (username, id) => {
+userSchema.statics.generateJWT = (username, id, reset_password) => {
   const today = new Date();
   const exp = new Date(today);
   const userId = id || '';
@@ -42,6 +43,7 @@ userSchema.statics.generateJWT = (username, id) => {
   return jwt.sign({
     id: userId,
     username: username,
+    reset_password: reset_password,
     exp: parseInt(exp.getTime() / 1000, 10)
   }, config.get('jwt.secret'));
 };
