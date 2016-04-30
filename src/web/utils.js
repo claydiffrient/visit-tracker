@@ -53,9 +53,14 @@ export function getUserState () {
  * @param  {Object} axiosLib The axios library
  * @return {Object}          The configured axios library
  */
-export function configureAxios (axiosLib, token = getToken()) {
+export function configureAxios (axiosLib) {
   // Set the auth token if it's available
-  axiosLib.interceptors.request.use((config) => {
+  axiosLib.interceptors.request.use((config, token = getToken()) => {
+    // When logging in, there will be no need to set the Auth
+    // headers
+    if (config.url.indexOf('/auth/login') !== -1) {
+      return config;
+    }
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   });
