@@ -26,6 +26,15 @@ export default class Index extends Component {
       <div>
         <Row className='text-center'>
           <Col sm={12}>
+            <p>
+              Use this screen to see who has been visited within each of the
+              displayed time periods. By default all people are listed. Clicking a filter button will narrow the list
+              to that time period.  Clicking the same filter will remove all filters.
+            </p>
+          </Col>
+        </Row>
+        <Row className='text-center'>
+          <Col sm={12}>
             <ButtonGroup>
               <Button onClick={this.handleFilter.bind(null, 'never')}>Not Visited</Button>
               <Button onClick={this.handleFilter.bind(null, '12m')}>12 Months</Button>

@@ -17,6 +17,7 @@ export default class PeopleList extends Component {
   render () {
     return (
       <div>
+        <p>This page lists all the visits which have occurred.</p>
         <Table striped hover responsive>
           <thead>
             <tr>

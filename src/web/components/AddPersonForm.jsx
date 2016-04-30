@@ -29,6 +29,7 @@ export default class AddPersonForm extends Component {
   render () {
     return (
       <div>
+        <p>Use this form to add people to the system.</p>
         <form className='form-inline' onSubmit={this.handleSubmit}>
           <Input
             type="text"
