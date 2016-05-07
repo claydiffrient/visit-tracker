@@ -16,7 +16,7 @@ const userSchema = new Schema({
   updated_at: Date
 });
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function (next) {
   const currentDate = new Date();
 
   this.updated_at = currentDate;
@@ -53,6 +53,9 @@ userSchema.methods.validPassword = function (password) {
   return this.password_hash === hash;
 }
 
-const User = mongoose.model('User', userSchema);
+const User = (mongoose.models.User) ?
+              mongoose.model('User') :
+              mongoose.model('User', userSchema);
+
 
 module.exports = User;

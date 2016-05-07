@@ -12,7 +12,7 @@ const personSchema = new Schema({
   updated_by: String
 });
 
-personSchema.pre('save', (next) => {
+personSchema.pre('save', function (next) {
   const currentDate = new Date();
   this.updated_at = currentDate;
 
@@ -43,6 +43,8 @@ personSchema.methods.getLastVisit = () => {
 
 personSchema.set('toJSON', { virtuals: true });
 
-const Person = mongoose.model('Person', personSchema);
+const Person = (mongoose.models.Person) ?
+                mongoose.model('Person') :
+                mongoose.model('Person', personSchema);
 
 module.exports = Person;

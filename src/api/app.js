@@ -12,7 +12,9 @@ const cors = require('cors');
 let app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.get('DB.url'));
+if (!mongoose.connection) {
+  mongoose.connect(config.get('DB.url'));
+}
 
 app.models = require('./models');
 
@@ -29,7 +31,10 @@ app.set('view engine', 'jade');
 // TODO: Make this a bit more fine grained.
 app.use(cors());
 
-app.use(logger('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(logger('dev'));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

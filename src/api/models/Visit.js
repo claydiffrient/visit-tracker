@@ -22,6 +22,9 @@ visitSchema.pre('save', (next) => {
   next();
 });
 
-const Visit = mongoose.model('Visit', visitSchema);
+const Visit = (mongoose.models.Visit) ?
+                mongoose.model('Visit') :
+                mongoose.model('Visit', visitSchema);
+
 
 module.exports = Visit;
